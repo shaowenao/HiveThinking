@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swa.mybatis.mappers.EmployeeMapper">
+    <!--
+        id：sql的唯一标识。保证在同一个namespace下没有同名的sql即可。
+                必须和接口中，希望调用此sql的方法名一致。
+
+        resultType: 查询的单行数据需要根据ORM映射封装的类型
+
+        jdbc中使用?作为占位符，在mybatis中，使用#{xxx}作为占位符。
+            如果一条sql只有一个占位符，xxx随便写
+               是什么语句，就用什么标签
+
+               为什么这里传xxx
+-->
+    <select id="getEmployeeById" resultType="com.swa.mybatis.beans.Employee">
+        select * from employee where id = #{jljaelkjfalkfj}
+
+    </select>
+
+    <select id="getEmployeeById2" resultType="com.swa.mybatis.beans.Employee">
+        select * from ${name} where id = #{empId}
+
+    </select>
+
+    <select id="getAll" resultType="com.swa.mybatis.beans.Employee">
+        select * from employee
+    </select>
+
+    <!--
+        如果一条语句有多个占位符 #{xxxx}, xxxx不能随便写。参考数据的来源。
+            如果 #{xxxx} 来自某个Bean的属性，此时xxxx就是想获取的属性名
+           举例:
+                 void insertEmployee(Employee employee);
+
+             #{id}: 读取 Employee employee，调用 employee.getId()获取id属性
+-->
+
+    <insert id="insertEmployee">
+
+        insert into tbl_employee values(#{id},#{lastName},#{gender},#{email})
+
+    </insert>
+
+    <!--void updateEmployee(Employee employee)-->
+    <update id="updateEmployee">
+
+        update employee set last_name = #{lastName},gender=#{gender},email=#{email}
+        where id = #{id}
+    </update>
+
+<!--void deleteEmployeeById(Integer id)-->
+    <delete id="deleteEmployeeById">
+        delete from employee where id = #{xxxxx}
+    </delete>
+</mapper>
